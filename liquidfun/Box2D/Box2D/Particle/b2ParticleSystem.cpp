@@ -52,7 +52,7 @@ static const uint32 yMask = ((1u << yTruncBits) - 1u) << yShift;
 static const uint32 xMask = ~yMask;
 static const uint32 relativeTagRight = 1u << xShift;
 static const uint32 relativeTagBottomLeft = (uint32)((1 << yShift) +
-                                                    (-1 << xShift));
+                                                    ((~uint32(0)) << xShift));
 
 static const uint32 relativeTagBottomRight = (1u << yShift) + (1u << xShift);
 
@@ -1322,10 +1322,9 @@ void b2ParticleSystem::CreateParticleGroupsFromParticleList(
 		for (ParticleListNode* node = list; node; node = node->next)
 		{
 			int32 oldIndex = node->index;
-			uint32& flags = m_flagsBuffer.data[oldIndex];
-			b2Assert(!(flags & b2_zombieParticle));
+			b2Assert(!(m_flagsBuffer.data[oldIndex] & b2_zombieParticle));
 			int32 newIndex = CloneParticle(oldIndex, newGroup);
-			flags |= b2_zombieParticle;
+			m_flagsBuffer.data[oldIndex] |= b2_zombieParticle;
 			node->index = newIndex;
 		}
 	}

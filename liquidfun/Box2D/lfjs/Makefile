@@ -87,7 +87,9 @@ B2BODY = \
 	'_b2Body_SetLinearVelocity', \
 	'_b2Body_SetMassData', \
 	'_b2Body_SetTransform', \
-	'_b2Body_SetType'
+	'_b2Body_SetType',\
+	'_b2Body_SetGravityScale',\
+	'_b2Body_GetGravityScale'
 
 B2CHAINSHAPE = \
 	'_b2ChainShape_CreateFixture'
@@ -112,7 +114,8 @@ B2EDGESHAPE = \
 	'_b2EdgeShape_CreateFixture'
 
 B2FIXTURE = \
-	'_b2Fixture_TestPoint'
+	'_b2Fixture_TestPoint', \
+	'_b2Fixture_Refilter' \
 
 B2FRICTIONJOINT = \
 	'_b2FrictionJointDef_Create', \

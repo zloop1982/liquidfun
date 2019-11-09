@@ -73,6 +73,8 @@ var b2Body_SetTransform =
 var b2Body_SetType =
   Module.cwrap('b2Body_SetType', 'null', ['number', 'number']);
 
+var b2Body_SetGravityScale = Module.cwrap('b2Body_SetGravityScale', 'null', ['number', 'number']);
+var b2Body_GetGravityScale = Module.cwrap('b2Body_GetGravityScale', 'number', ['number']);
 
 // memory offsets
 var b2Body_xf_offset = Offsets.b2Body.xf;
@@ -111,6 +113,7 @@ b2Body.prototype.CreateFixtureFromDef = function(fixtureDef) {
   fixture.body = this;
   b2World._Push(fixture, this.fixtures);
   world.fixturesLookup[fixture.ptr] = fixture;
+  fixture.SetFilterData(fixtureDef.filter);
   return fixture;
 };
 
@@ -229,6 +232,16 @@ b2Body.prototype.SetTransform = function(v, angle) {
 b2Body.prototype.SetType = function(type) {
   b2Body_SetType(this.ptr, type);
 };
+
+b2Body.prototype.SetGravityScale = function(scale) {
+  b2Body_SetGravityScale(this.ptr, scale);
+};
+
+b2Body.prototype.GetGravityScale = function() {
+  return b2Body_GetGravityScale(this.ptr);
+};
+
+
 
 // General body globals
 var b2_staticBody = 0;
